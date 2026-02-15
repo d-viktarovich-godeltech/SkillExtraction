@@ -8,8 +8,8 @@ public static class MappingConfig
 {
     public static void Configure()
     {
-        // User to UserDto
-        TypeAdapterConfig<User, UserDto>.NewConfig();
+        // User to UserResponse
+        TypeAdapterConfig<User, UserResponse>.NewConfig();
 
         // CvUpload to CvUploadResponse
         TypeAdapterConfig<CvUpload, CvUploadResponse>.NewConfig();

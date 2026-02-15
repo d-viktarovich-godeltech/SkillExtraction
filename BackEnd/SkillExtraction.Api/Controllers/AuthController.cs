@@ -37,7 +37,7 @@ public class AuthController : ControllerBase
             return Ok(new LoginResponse
             {
                 Token = result.Token,
-                User = result.User.Adapt<UserDto>()
+                User = result.User.Adapt<UserResponse>()
             });
         }
         catch (InvalidOperationException ex)
@@ -65,13 +65,13 @@ public class AuthController : ControllerBase
         return Ok(new LoginResponse
         {
             Token = result.Token,
-            User = result.User.Adapt<UserDto>()
+            User = result.User.Adapt<UserResponse>()
         });
     }
 
     [HttpGet("me")]
     [Authorize]
-    public async Task<ActionResult<UserDto>> GetCurrentUser()
+    public async Task<ActionResult<UserResponse>> GetCurrentUser()
     {
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         
@@ -88,7 +88,7 @@ public class AuthController : ControllerBase
             return NotFound();
         }
 
-        return Ok(result.User.Adapt<UserDto>());
+        return Ok(result.User.Adapt<UserResponse>());
     }
 }
 

@@ -111,3 +111,19 @@ I have 1 CV uploaded. When I go to History page I see blank page. Why? I assume 
 ------------------------------------
 
 please add all prompts that were used in this chat to Prompts/plan-and-implementation-prompts.txt
+
+------------------------------------
+
+You can see all previous prompts in Prompts/plan-and-implementation-prompts.txt just for context. I asked to split BE project to 3 projects (Api/Core/Data) before. As I see there are duplicated services like DbContext and FileStorage. Your task to remove duplicates and leave only one copy of service. Make sure that service is still functional after changes by build.
+
+------------------------------------
+
+Split all models from DTOs/ApiDtos to separate files and put them in Models folder.
+
+------------------------------------
+
+Add all prompts from this conversation to Prompts/plan-and-implementation-prompts.txt
+
+------------------------------------
+
+What is UserDto? In case it is ResponseModel could you please rename it to UserResponse
