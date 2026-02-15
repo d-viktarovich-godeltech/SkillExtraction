@@ -1,6 +1,6 @@
 using Microsoft.IdentityModel.Tokens;
-using SkillExtraction.Api.Data;
-using SkillExtraction.Api.Models;
+using SkillExtraction.Core.Interfaces;
+using SkillExtraction.Core.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -9,26 +9,26 @@ namespace SkillExtraction.Api.Services;
 
 public class AuthService
 {
-    private readonly DuckDbContext _dbContext;
+    private readonly IUserRepository _userRepository;
     private readonly IConfiguration _configuration;
 
-    public AuthService(DuckDbContext dbContext, IConfiguration configuration)
+    public AuthService(IUserRepository userRepository, IConfiguration configuration)
     {
-        _dbContext = dbContext;
+        _userRepository = userRepository;
         _configuration = configuration;
     }
 
     public async Task<User> RegisterUserAsync(string username, string email, string password)
     {
         // Check if username already exists
-        var existingUser = await _dbContext.GetUserByUsernameAsync(username);
+        var existingUser = await _userRepository.GetUserByUsernameAsync(username);
         if (existingUser != null)
         {
             throw new InvalidOperationException("Username already exists");
         }
 
         // Check if email already exists
-        existingUser = await _dbContext.GetUserByEmailAsync(email);
+        existingUser = await _userRepository.GetUserByEmailAsync(email);
         if (existingUser != null)
         {
             throw new InvalidOperationException("Email already exists");
@@ -38,16 +38,16 @@ public class AuthService
         var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
 
         // Create user
-        return await _dbContext.CreateUserAsync(username, email, passwordHash);
+        return await _userRepository.CreateUserAsync(username, email, passwordHash);
     }
 
     public async Task<User?> ValidateUserAsync(string usernameOrEmail, string password)
     {
         // Try to find user by username or email
-        var user = await _dbContext.GetUserByUsernameAsync(usernameOrEmail);
+        var user = await _userRepository.GetUserByUsernameAsync(usernameOrEmail);
         if (user == null)
         {
-            user = await _dbContext.GetUserByEmailAsync(usernameOrEmail);
+            user = await _userRepository.GetUserByEmailAsync(usernameOrEmail);
         }
 
         if (user == null)

@@ -2,7 +2,7 @@ using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SkillExtraction.Api.DTOs;
+using SkillExtraction.Api.Models;
 using SkillExtraction.Core.Commands;
 using SkillExtraction.Core.Queries;
 using System.Security.Claims;

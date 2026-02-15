@@ -1,5 +1,5 @@
 using Mapster;
-using SkillExtraction.Api.DTOs;
+using SkillExtraction.Api.Models;
 using SkillExtraction.Core.Models;
 
 namespace SkillExtraction.Api.Mappings;
