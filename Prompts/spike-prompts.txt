@@ -1,0 +1,9 @@
+Please create small .NET 9 Console application that uploads CV to OpenAI ChatGPT. API key should be provided via appsettings.json
+|
+I've updated system message a little. Please make uploaded file in PDF format
+|
+Can we upload PDF to OpenAI ChatGPT? Without any extraction. I planned to use several formats. E.g. .pdf .png .jpeg
+|
+This application has an errors. Please build it and fix errors
+|
+Please save all prompts that I sent to you in file. Prompts.txt. split them via vertical line

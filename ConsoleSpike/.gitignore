@@ -1,0 +1,20 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Application settings with sensitive data
+appsettings.json
+appsettings.*.json
+appsettings.Local.json
+
+# Visual Studio
+.vs/
+*.vsidx
+*.v2
+
+# User-specific files
+*.rsuser

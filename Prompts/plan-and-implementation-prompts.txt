@@ -1,0 +1,49 @@
+I need to create an Skill Extraction Tool which would allow to upload a CV and, extracts skills from it. Each session should be saved to user profile upload history for review or removal in future. Application should consist of Front End and Back End application, have simple authentication to allow storage of data for list of users.
+
+Application should contain several pages:
+1) Landing page
+2) Login and Registration page
+3) CV upload page 
+4) Profile page to review or remove uploaded CVs with extracted skills
+
+I'd propose to store FE and BE in single repository but in separate subfolders FrontEnd/BackEnd. 
+
+Technologies:
+AspNetCore for BE 
+React for FE. 
+DuckDb as DB
+ChatGPT to extract skills from 
+I'd like to store CV (pdfs) in filesystem in specified folder
+I'd like to store all users and their data in DuckDB
+
+Your task is to plan how can I implement this service and propose list of tasks with short description of what should be done. Tasks should be separated to backend/frontend.
+If you have any questions, ask them before generating the plan. Propose top 3 improvements that you could suggest
+
+------------------------------------
+
+Start implementation
+
+------------------------------------
+
+Create .github folder with basic instructions that could be extended
+
+------------------------------------
+
+Please remove content of .github folder
+
+------------------------------------
+
+please try to run backend application and fix errors
+
+------------------------------------
+
+Save prompt from this conversation to file Prompts/plan-and-implementation-prompts.txt. Split all commands by horisontal line delimiter. e.g.
+command1
+
+------------------------------------
+
+command2
+
+------------------------------------
+
+command3
