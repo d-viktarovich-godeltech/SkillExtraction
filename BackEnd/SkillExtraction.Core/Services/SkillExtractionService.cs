@@ -99,15 +99,20 @@ Only return the JSON, no additional text or explanation.
             }
             cleanedResponse = cleanedResponse.Trim();
 
-            var result = JsonSerializer.Deserialize<CvAnalysisResult>(cleanedResponse);
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var result = JsonSerializer.Deserialize<CvAnalysisResult>(cleanedResponse, options);
             return result ?? new CvAnalysisResult { Summary = "Failed to analyze CV", Skills = new List<string>() };
         }
-        catch (JsonException)
+        catch (JsonException ex)
         {
             // If parsing fails, return raw response as summary
             return new CvAnalysisResult 
             { 
-                Summary = responseText, 
+                Summary = $"Failed to parse response: {ex.Message}. Raw: {responseText}", 
                 Skills = new List<string>() 
             };
         }

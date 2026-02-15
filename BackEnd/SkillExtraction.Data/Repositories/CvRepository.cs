@@ -26,7 +26,8 @@ public class CvRepository : ICvRepository
             INSERT INTO CvUploads (Id, UserId, FileName, StoragePath, UploadDate, FileSize, 
                                     ExtractedSkills, Summary, AnalysisResult)
             VALUES (nextval('cvuploads_id_seq'), $1, $2, $3, $4, $5, $6, $7, $8)
-            RETURNING *";
+            RETURNING Id, UserId, FileName, StoragePath, UploadDate, FileSize, 
+                      ExtractedSkills, Summary, AnalysisResult";
         
         command.Parameters.Add(new DuckDBParameter(cvUpload.UserId));
         command.Parameters.Add(new DuckDBParameter(cvUpload.FileName));
@@ -50,7 +51,9 @@ public class CvRepository : ICvRepository
         await connection.OpenAsync();
 
         using var command = connection.CreateCommand();
-        command.CommandText = "SELECT * FROM CvUploads WHERE Id = $1 AND UserId = $2";
+        command.CommandText = @"SELECT Id, UserId, FileName, StoragePath, UploadDate, FileSize, 
+                                       ExtractedSkills, Summary, AnalysisResult 
+                                FROM CvUploads WHERE Id = $1 AND UserId = $2";
         command.Parameters.Add(new DuckDBParameter(id));
         command.Parameters.Add(new DuckDBParameter(userId));
 
@@ -69,7 +72,9 @@ public class CvRepository : ICvRepository
         await connection.OpenAsync();
 
         using var command = connection.CreateCommand();
-        command.CommandText = "SELECT * FROM CvUploads WHERE UserId = $1 ORDER BY UploadDate DESC LIMIT $2";
+        command.CommandText = @"SELECT Id, UserId, FileName, StoragePath, UploadDate, FileSize, 
+                                       ExtractedSkills, Summary, AnalysisResult 
+                                FROM CvUploads WHERE UserId = $1 ORDER BY UploadDate DESC LIMIT $2";
         command.Parameters.Add(new DuckDBParameter(userId));
         command.Parameters.Add(new DuckDBParameter(limit));
 

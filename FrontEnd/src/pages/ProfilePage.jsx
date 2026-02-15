@@ -108,8 +108,8 @@ const ProfilePage = () => {
                 <div key={cv.id} className="cv-card">
                   <div className="cv-card-header">
                     <h3>{cv.fileName}</h3>
-                    <span className={`status-badge ${cv.processingStatus.toLowerCase()}`}>
-                      {cv.processingStatus}
+                    <span className={`status-badge ${cv.extractedSkills && cv.extractedSkills.length > 0 ? 'completed' : 'processing'}`}>
+                      {cv.extractedSkills && cv.extractedSkills.length > 0 ? 'Completed' : 'Processing'}
                     </span>
                   </div>
                   
@@ -121,7 +121,7 @@ const ProfilePage = () => {
                     )}
                   </div>
 
-                  {cv.processingStatus === 'Completed' && cv.extractedSkills && cv.extractedSkills.length > 0 && (
+                  {cv.extractedSkills && cv.extractedSkills.length > 0 && (
                     <div className="skills-preview">
                       {cv.extractedSkills.slice(0, 3).map((skill, index) => (
                         <span key={index} className="skill-tag-mini">{skill}</span>
@@ -182,7 +182,7 @@ const ProfilePage = () => {
                 <h4>File Information</h4>
                 <p><strong>Upload Date:</strong> {formatDate(selectedCv.uploadDate)}</p>
                 <p><strong>File Size:</strong> {formatFileSize(selectedCv.fileSize)}</p>
-                <p><strong>Status:</strong> {selectedCv.processingStatus}</p>
+                <p><strong>Status:</strong> {selectedCv.extractedSkills && selectedCv.extractedSkills.length > 0 ? 'Completed' : 'Processing'}</p>
               </div>
             </div>
 

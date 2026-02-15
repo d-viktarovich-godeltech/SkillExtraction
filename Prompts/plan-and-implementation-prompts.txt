@@ -47,3 +47,67 @@ command2
 ------------------------------------
 
 command3
+
+------------------------------------
+
+i tried to install npms with npm install command but got error. How to fix that?
+
+npm : Невозможно загрузить файл C:\Program Files\nodejs\npm.ps1, так как выполнение сценариев отключено в этой системе.
+
+------------------------------------
+
+How to run FrontEnd project?
+
+------------------------------------
+
+My backend runs at port https://localhost:5000 but FE tries to reach https://localhost:7199. Could you fix that?
+
+------------------------------------
+
+Please add correct processing of CORS requests for backend
+
+------------------------------------
+
+I've updated several files to correctly bind FE and BE. Be aware of that
+
+------------------------------------
+
+When i try to upload CV I get error. Why is that happens?
+"error": "Could not find a part of the path 'D:\\GodelLearning\\SkillExtraction\\BackEnd\\SkillExtraction.Api\\uploads\\cvs\\uploads\\cvs\\4_20260215125858_ac8ce4c5-a6ff-4670-92e3-bb6a1cf253b4.jpg'."
+
+------------------------------------
+
+Backend does not try to load appsettings.Local.json. Can you fix that?
+
+------------------------------------
+
+Wen I upload CV i get BE exception. Could you fix that?
+"error": "Binder Error: Table \"CvUploads\" does not have a column with name \"StoragePath\"\n\nDid you mean: \"FilePath\""
+
+------------------------------------
+
+How can I install new custom agents in vscode?
+
+------------------------------------
+
+Now I'm getting error 
+"error": "Constraint Error: NOT NULL constraint failed: CvUploads.ProcessingStatus"
+
+------------------------------------
+
+On backend after analysis and cleaning of response JsonSerializer cannot deserialize response for some reason.
+example of cleaned response that it tries to deserialize:
+
+"{\n  \"summary\": \"Store Manager with extensive experience in automotive sales management, demonstrating excellent leadership skills and the ability to improve store operations and drive sales. Proven track record in coaching employees and managing service and repair goals.\",\n  \"skills\": [\n    \"Leadership skills\",\n    \"Sales management\",\n    \"Employee coaching\",\n    \"Service management\",\n    \"Budget management\",\n    \"Organizational capacity\",\n    \"Business development\",\n    \"Effective marketing\",\n    \"Ability to motivate staff\",\n    \"Good relations management\",\n    \"Resistance to stress\"\n  ]\n}"
+
+------------------------------------
+
+It successfully extracts response and summary from response of OpenAI but for some reason there are no Summary in response of backend service
+
+------------------------------------
+
+I have 1 CV uploaded. When I go to History page I see blank page. Why? I assume problem in FE
+
+------------------------------------
+
+please add all prompts that were used in this chat to Prompts/plan-and-implementation-prompts.txt

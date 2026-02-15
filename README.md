@@ -96,7 +96,7 @@ Copy-Item appsettings.json appsettings.Local.json
 dotnet run
 ```
 
-Backend will start at `https://localhost:7199` (and `http://localhost:5000`)
+Backend will start at `http://localhost:5000` (and `http://localhost:5000`)
 
 ### 3. Frontend Setup
 
@@ -115,7 +115,7 @@ Frontend will start at `http://localhost:3000`
 ## 📖 API Documentation
 
 API documentation is available via Swagger UI when running the backend in development mode:
-- Navigate to `https://localhost:7199/swagger`
+- Navigate to `http://localhost:5000/swagger`
 
 ### Key Endpoints
 
@@ -203,7 +203,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://localhost:7199',
+        target: 'http://localhost:5000',
         changeOrigin: true,
         secure: false
       }

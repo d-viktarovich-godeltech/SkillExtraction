@@ -31,7 +31,8 @@ public class FileStorageService : IFileStorageService
         await fileStream.CopyToAsync(fileStreamWriter);
 
         var fileInfo = new FileInfo(filePath);
-        return (filePath, fileInfo.Length);
+        // Return only the filename, not the full path
+        return (uniqueFileName, fileInfo.Length);
     }
 
     public Task<bool> DeleteCvFileAsync(string storagePath)

@@ -65,5 +65,75 @@ public class DuckDbContext
         
         command.CommandText = createCvUploadsTable;
         await command.ExecuteNonQueryAsync();
+
+        // Migrate old schema if needed
+        await MigrateSchemaAsync(connection);
+    }
+
+    private async Task MigrateSchemaAsync(DuckDBConnection connection)
+    {
+        try
+        {
+            // Check if we need to migrate from FilePath to StoragePath
+            using var checkCommand = connection.CreateCommand();
+            checkCommand.CommandText = "SELECT column_name FROM information_schema.columns WHERE table_name = 'CvUploads' AND column_name = 'FilePath'";
+            var hasFilePath = await checkCommand.ExecuteScalarAsync();
+
+            if (hasFilePath != null)
+            {
+                // Rename FilePath to StoragePath
+                using var alterCommand = connection.CreateCommand();
+                alterCommand.CommandText = "ALTER TABLE CvUploads RENAME COLUMN FilePath TO StoragePath";
+                await alterCommand.ExecuteNonQueryAsync();
+            }
+
+            // Remove old ProcessingStatus column if it exists
+            checkCommand.CommandText = "SELECT column_name FROM information_schema.columns WHERE table_name = 'CvUploads' AND column_name = 'ProcessingStatus'";
+            var hasProcessingStatus = await checkCommand.ExecuteScalarAsync();
+
+            if (hasProcessingStatus != null)
+            {
+                using var alterCommand = connection.CreateCommand();
+                alterCommand.CommandText = "ALTER TABLE CvUploads DROP COLUMN ProcessingStatus";
+                await alterCommand.ExecuteNonQueryAsync();
+            }
+
+            // Rename OpenAiResponse to AnalysisResult if it exists
+            checkCommand.CommandText = "SELECT column_name FROM information_schema.columns WHERE table_name = 'CvUploads' AND column_name = 'OpenAiResponse'";
+            var hasOpenAiResponse = await checkCommand.ExecuteScalarAsync();
+
+            if (hasOpenAiResponse != null)
+            {
+                using var alterCommand = connection.CreateCommand();
+                alterCommand.CommandText = "ALTER TABLE CvUploads RENAME COLUMN OpenAiResponse TO AnalysisResult";
+                await alterCommand.ExecuteNonQueryAsync();
+            }
+
+            // Check if we need to add Summary column
+            checkCommand.CommandText = "SELECT column_name FROM information_schema.columns WHERE table_name = 'CvUploads' AND column_name = 'Summary'";
+            var hasSummary = await checkCommand.ExecuteScalarAsync();
+
+            if (hasSummary == null)
+            {
+                using var alterCommand = connection.CreateCommand();
+                alterCommand.CommandText = "ALTER TABLE CvUploads ADD COLUMN Summary VARCHAR";
+                await alterCommand.ExecuteNonQueryAsync();
+            }
+
+            // Check if we need to add AnalysisResult column (if OpenAiResponse didn't exist)
+            checkCommand.CommandText = "SELECT column_name FROM information_schema.columns WHERE table_name = 'CvUploads' AND column_name = 'AnalysisResult'";
+            var hasAnalysisResult = await checkCommand.ExecuteScalarAsync();
+
+            if (hasAnalysisResult == null)
+            {
+                using var alterCommand = connection.CreateCommand();
+                alterCommand.CommandText = "ALTER TABLE CvUploads ADD COLUMN AnalysisResult VARCHAR";
+                await alterCommand.ExecuteNonQueryAsync();
+            }
+        }
+        catch
+        {
+            // Ignore migration errors if table doesn't exist yet
+        }
     }
 }

@@ -258,7 +258,7 @@ cd d:\GodelLearning\Splike\BackEnd\SkillExtractionApi
 dotnet run
 ```
 
-**Backend runs at**: `https://localhost:7199` (Swagger: `/swagger`)
+**Backend runs at**: `http://localhost:5000` (Swagger: `/swagger`)
 
 ### Frontend
 
